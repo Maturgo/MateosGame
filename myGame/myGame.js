@@ -14,10 +14,33 @@ var score2 = 0;
 var scoreText1;
 var scoreText2;
 var hitPlayers;
-var ledge;
-var time = 25;
+var time = 20;
 var timetext;
+var gameOver;
+var finalScores;
 
+function timer (){
+    game.add.sprite(0, 0, "black");
+}
+setTimeout(timer, 21000);
+
+function gameOver ()
+    {
+       gameOver.text = game.add.text(315, 225, "Game Over", { fontSize: "40px", fill: "#ff0000"});
+    }
+setTimeout(gameOver, 22000);
+function finalScores ()
+    {
+       if (score1 > score2)
+       {
+           finalScores.text = game.add.text(300, 300, "Player 1 Wins!", { fontSize: "40px", fill: "#ff0000"});
+       }
+       else if (score2 > score1)
+       {
+           finalScores.text = game.add.text(300, 300, "Player 2 Wins!", { fontSize: "40px", fill: "#ff0000"});
+       }
+    }
+setTimeout(finalScores, 23000);
 
 function preload() {
     
@@ -25,11 +48,13 @@ function preload() {
     game.load.image('coin', 'assests/coin.png');
     game.load.image('ground', 'assests/platform.png');
     game.load.image('star', 'assests/star.png');
-    game.load.image('black', 'assests/black.png');
+    game.load.image('black', 'assests/Black.jpg');
     game.load.spritesheet('dude', 'assests/dude.png', 32, 48);
     game.load.spritesheet('baddie', 'assests/baddie.png', 32, 32);
     
 }
+
+
 
 function create() {
    
@@ -49,14 +74,14 @@ function create() {
     player1 = game.add.sprite(32, game.world.height - 250, "dude");
     game.physics.arcade.enable(player1);
     player1.body.bounce.y = 0.2;
-    player1.body.gravity.y = 250;
+    player1.body.gravity.y = 500;
     player1.body.collideWorldBounds = true;
     player1.animations.add("left", [0, 1, 2, 3], 10, true);
     player1.animations.add("right", [5, 6, 7, 8], 10, true);
     player2 = game.add.sprite(728, game.world.height - 250, "baddie");
     game.physics.arcade.enable(player2);
     player2.body.bounce.y = 0.2;
-    player2.body.gravity.y = 250;
+    player2.body.gravity.y = 500;
     player2.body.collideWorldBounds = true;
     player2.animations.add("left", [0, 1], 10, true);
     player2.animations.add("right", [2, 3], 10, true);
@@ -82,10 +107,7 @@ function create() {
     
     setInterval(time2, 1000);
     
-    function gameOver ()
-    {
-        
-    }
+    
     
 }
 
@@ -114,7 +136,7 @@ function update() {
     
     if (cursors.up.isDown && player2.body.touching.down && hitPlatform)
     {
-        player2.body.velocity.y = -350.5354;
+        player2.body.velocity.y = -500.5354;
     }
     
     if (left.isDown)
@@ -135,7 +157,7 @@ function update() {
     
     if (up.isDown && player1.body.touching.down && hitPlatform)
     {
-        player1.body.velocity.y = -350.5354;
+        player1.body.velocity.y = -500.5354;
     }
 
     game.physics.arcade.collide(coins, platforms);
@@ -144,8 +166,7 @@ function update() {
     scoreText1.text = "Player 1 Score: " + score1;
     scoreText2.text = "Player 2 Score: " + score2;
     timetext.text = time;
-    
-    
+
 }
 
 function collectstar (player1, coin)
@@ -161,12 +182,4 @@ function collectstar2 (player2, coin)
     score2 += 1;
 }
 
-function timer ()
-{
-    if (score1 > score2)
-    {
-        
-    }
-}
 
-setTimeout(timer, 25000);
