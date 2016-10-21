@@ -19,6 +19,7 @@ var timetext;
 var gameOver;
 var finalScores;
 
+
 function timer (){
     game.add.sprite(0, 0, "black");
 }
@@ -38,6 +39,10 @@ function finalScores ()
        else if (score2 > score1)
        {
            finalScores.text = game.add.text(300, 300, "Player 2 Wins!", { fontSize: "40px", fill: "#ff0000"});
+       }
+       if (score1 == score2)
+       {
+           finalScores.text = game.add.text(360, 300, "Tie?", { fontSize: "40px", fill: "#ff0000"});
        }
     }
 setTimeout(finalScores, 23000);
@@ -108,7 +113,6 @@ function create() {
     setInterval(time2, 1000);
     
     
-    
 }
 
 function update() {
@@ -116,6 +120,7 @@ function update() {
     var hitPlatform = game.physics.arcade.collide(player1, platforms);
     hitPlatform = game.physics.arcade.collide(player2, platforms);
     hitPlayers = game.physics.arcade.collide(player1, player2);
+    hitPlayers = game.physics.arcade.collide(player2, player1);
     player1.body.velocity.x = 0;
     player2.body.velocity.x = 0;
     
@@ -181,5 +186,3 @@ function collectstar2 (player2, coin)
     coin.kill();
     score2 += 1;
 }
-
-
